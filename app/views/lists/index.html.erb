@@ -1,0 +1,12 @@
+<div class="container mt-2">
+
+<h1>Your playlists</h1>
+
+<ul style="list-style:roman">
+  <% @lists.each do |list| %>
+    <hr>
+    <li><%= link_to list.name, list_path(list)%></li>
+  <% end %>
+</ul>
+<button class="btn btn-outline-danger mt-6 pl-5"><%= link_to "Add a new list", new_list_path %></button>
+</div>

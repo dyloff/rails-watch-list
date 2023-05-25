@@ -1,0 +1,9 @@
+<h1>  Review </h1>
+
+<div class="mt-3">
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.association :movie %>
+    <%= f.input :comment %>
+    <%= f.submit "Submit", class: "btn btn-primary mt-3" %>
+  <% end %>
+</div>
