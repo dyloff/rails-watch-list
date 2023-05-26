@@ -1,17 +1,26 @@
-<div class="row row-cols-1 row-cols-md-8 g-2">
-    <div class="col">
+    <div class="row">
+    <%# <%= link_to "New Bookmark",  %>
+      <% if @list.photo.attached? %>
+        <%= cl_image_tag @list.photo.key, height: 300, width: 400, crop: :fill %>
+      <% end  %>
       <% @list.movies.each do |movie| %>
       <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
-        <div class="card h-100">
-          <%= image_tag movie.poster_url, alt: movie.title, width: 100 %>
-            <div class="card-body">
-              <h5 class="card-title"><%= movie.title %></h5>
-              <p class="card-text"><%= movie.overview %></p>
-              <p class="card-text"> Rating: <%= movie.rating %></p>
-              <p class="card-text"> Bookmark comment: <%= bookmark.comment %></p>
-            </div>
-              <%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
-            <% end %>
+        <div class="card" style="width: 18rem;">
+          <img src=<%= movie.poster_url%> class="card-img-top" alt=<%=movie.title + " poster"%>>
+          <div class="card-body">
+            <h5 class="card-title"> <%= movie.title %>  </h5>
+            <p class="card-text" style="
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            "> <%= movie.overview %>  </p>
+            <p class="card-text"> Rating: <%= movie.rating %></p>
+            <p class="card-text"> Bookmark comment: <%= bookmark.comment %></p>
+            <a href="#" class="btn btn-primary"><%= link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %></a>
+          </div>
         </div>
+        <% end %>
+        <button class="btn btn-outline-danger mt-6 pl-5"><%= link_to "Add a movie",  new_list_bookmark_path(@list) %></button>
+      </div>
     </div>
-  </div>
